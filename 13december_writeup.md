@@ -14,12 +14,12 @@ https://fdca-willy.chals.io/*"
 
 Following the URL, we are presented with the following website:
 
-![challenge website](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/Challenge_page.gif)
+![challenge website](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/challenge_page.gif)
 
 
 The text says: "I made a cool ROT rainbow! Because ROT13 is too boring: Whats your name in ROT rainbow?"
 
-Let's try to input something and see what it does... like: *soya*
+Let's try to input something and see what it does... like say: `soya`
 
 ![](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/image1.png)
 
