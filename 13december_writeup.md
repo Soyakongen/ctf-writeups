@@ -19,7 +19,7 @@ The text says: "I made a cool ROT rainbow! Because ROT13 is too boring: Whats yo
 
 Let's try to input something... like: *soya*
 
-![](/ctf-writeups/writeupfiles/image1.png)
+![](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/image1.png)
 
 Ok, so `soya` became `sp{d`. Apparently the input is rotated following some pattern. 
 
