@@ -13,7 +13,7 @@ https://fdca-willy.chals.io/*
 
 Following the URL, we are presented with the following website:
 
-![challeng website](/ctf-writeups/writeupfiles/Challenge_page.gif)
+![challenge website](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/Challenge_page.gif)
 
 The text says: "I made a cool ROT rainbow! Because ROT13 is too boring: Whats your name in ROT rainbow?"
 
@@ -27,7 +27,7 @@ Also, we're given a hint that the website is rendered using Jinja2. Jinja is a t
 
 Let's see if we can figure out a pattern for the input rotation. I just tried to input a bunch of a's:
 
-![](/ctf-writeups/writeupfiles/image2.png)
+![](https://github.com/Soyakongen/ctf-writeups/blob/main/ctf-writeups/writeupfiles/image2.png)
 
 Great! It looks like the rotation rolls over at some point. From this we learn that we have the following character space of 95 characters: ``abcdefghijklmnopqrstuvwxyz{|}~ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_` ``
 
@@ -47,7 +47,7 @@ Continuing like that, we find that the string ``{z}`ki`b_vsr`` will be rotated t
 
 Aaaand it turns out that the application indeed is vulnerable to template injections. This is the result from inputting ``{z}`ki`b_vsr`` - the environment variables are dumped by the application - neat!
 
-![](/ctf-writeups/writeupfiles/image3.png)
+![](https://github.com/Soyakongen/ctf-writeups/blob/main/ctf-writeups/writeupfiles/image3.png)
 
 Obviously, continuing to rotate the input by hand was going to be very, very tiresome, so I wrote a small Python script that would rotate the input string for me:
 
@@ -75,4 +75,4 @@ So in the end, our ultimate goal is to be able to execute code on the machine. F
 
 ``{{request|attr('application')|attr('\x5f\x5fglobals\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fbuiltins\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fimport\x5f\x5f')('os')|attr('popen')('grep FDCA flag*')|attr('read')()}}``
 
-![](/ctf-writeups/writeupfiles/image4_redacted.png)
+![](https://github.com/Soyakongen/ctf-writeups/blob/main/ctf-writeups/writeupfiles/image4_redacted.png)
