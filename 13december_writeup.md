@@ -27,7 +27,7 @@ Also, we're given a hint that the website is rendered using Jinja2. Jinja is a t
 
 Let's see if we can figure out a pattern for the input rotation. I just tried to input a bunch of a's:
 
-![](https://github.com/Soyakongen/ctf-writeups/blob/main/ctf-writeups/writeupfiles/image2.png)
+![](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/image2.png)
 
 Great! It looks like the rotation rolls over at some point. From this we learn that we have the following character space of 95 characters: ``abcdefghijklmnopqrstuvwxyz{|}~ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_` ``
 
@@ -47,7 +47,7 @@ Continuing like that, we find that the string ``{z}`ki`b_vsr`` will be rotated t
 
 Aaaand it turns out that the application indeed is vulnerable to template injections. This is the result from inputting ``{z}`ki`b_vsr`` - the environment variables are dumped by the application - neat!
 
-![](https://github.com/Soyakongen/ctf-writeups/blob/main/ctf-writeups/writeupfiles/image3.png)
+![](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/image3.png)
 
 Obviously, continuing to rotate the input by hand was going to be very, very tiresome, so I wrote a small Python script that would rotate the input string for me:
 
