@@ -15,11 +15,13 @@ Following the URL, we are presented with the following website:
 
 ![challenge website](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/Challenge_page.gif)
 
+
 The text says: "I made a cool ROT rainbow! Because ROT13 is too boring: Whats your name in ROT rainbow?"
 
-Let's try to input something... like: *soya*
+Let's try to input something and see what it does... like: *soya*
 
 ![](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/image1.png)
+
 
 Ok, so `soya` became `sp{d`. Apparently the input is rotated following some pattern. 
 
@@ -27,27 +29,36 @@ Also, we're given a hint that the website is rendered using Jinja2. Jinja is a t
 
 Let's see if we can figure out a pattern for the input rotation. I just tried to input a bunch of a's:
 
+
 ![](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/image2.png)
 
+
 Great! It looks like the rotation rolls over at some point. From this we learn that we have the following character space of 95 characters: ``abcdefghijklmnopqrstuvwxyz{|}~ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_` ``
+
 
 Let's try to make some sense of this. 
 Recall the input `soya` which became `sp{d`. The first thing we notice is that the first charcter (at index 0) was not rotated. `o` became `p`. `y` was rotated to `{`. And `a` became `d`.
 
+
 See a pattern here? Our input string is rotated character by character, based on their index in the input string and replaced with the corresponding character from the character space. 
+
 
 Now we know how the input string is rotated. In order to try some template injection, we need to create a string of characters that, when rotated by the application, will become our desired test string. For example, we can try to see if we can get the application to dump its environment variables by inputting ` {{ config }}` [as suggested here](https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection/jinja2-ssti#dump-all-config-variables)
 
+
 Let's go over how to reverse this for the string ` {{ config } `:
+
 
 The first `{` is at index 0 in our string, so it will not be rotated
 The next `{` is at index 1. Finding `{` in our character space, we rotate by -1, and it becomes `z`
 Then we have a `space` at index 2, we find it in the character space and rotate by -2. That is a `}`
 Continuing like that, we find that the string ``{z}`ki`b_vsr`` will be rotated to `{{ config }}` by the application.
 
+
 Aaaand it turns out that the application indeed is vulnerable to template injections. This is the result from inputting ``{z}`ki`b_vsr`` - the environment variables are dumped by the application - neat!
 
 ![](https://github.com/Soyakongen/ctf-writeups/blob/main/writeupfiles/image3.png)
+
 
 Obviously, continuing to rotate the input by hand was going to be very, very tiresome, so I wrote a small Python script that would rotate the input string for me:
 
